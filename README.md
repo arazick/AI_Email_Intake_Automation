@@ -26,7 +26,8 @@ The program reads a simulated inbox (emails.txt, one registration email per line
 pip install openai tabulate
 py automation.py
 ```
-- You will need an OpenAI API key. The script imports it from a local sk.py file that is not included in this repository (see sk_example.py)
+- You will need an OpenAI API key. Details on this can be found on [Create your OpenAI key](https://info2951.infosci.cornell.edu/tutorials/openai-key.html) and [Platform OpenAI](https://platform.openai.com/home)
+- The script imports it from a local sk.py file that is not included in this repository (see sk_example.py)
 
 ## Files
 - automation.py: the main pipeline
