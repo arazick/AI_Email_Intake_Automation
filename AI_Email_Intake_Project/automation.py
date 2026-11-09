@@ -3,7 +3,6 @@ from sk import my_sk
 import json
 from datetime import datetime
 from tabulate import tabulate
-
 OPENAI_API_KEY = my_sk #API secret key
 inbox = [] #list of all emails from text file
 with open ("emails.txt", "r") as emails: #read from text file and add each non-blank line to the 'inbox' array
@@ -49,7 +48,7 @@ client = OpenAI(api_key=OPENAI_API_KEY) #create client
 registration_requests = []
 for mail in inbox:
     response = client.responses.create(
-    model = "gpt-4",
+    model = "gpt-4o-mini",
     instructions=
     "You are reading a race registration email. Extract the following information:" \
     "1. full_name" \
@@ -68,7 +67,13 @@ for mail in inbox:
     input=mail,
     temperature = 0
     )
-    registration= json.loads(response.output_text)
+    try:
+        registration = json.loads(response.output_text)
+    except json.JSONDecodeError:
+        registration = {}
+    for field in ("full_name", "race_distance", "race_date"):
+        if registration.get(field) in (None, ""):
+            registration[field] = "null"
     registration_requests.append(registration)
 client.close()
 
@@ -109,10 +114,10 @@ for registration in registration_requests:
         else:
                 format = "%m/%d/%Y"
                 try:
-                    datetime.strptime(date, format)
+                    date = datetime.strptime(date, format).strftime(format)
                 except ValueError:
                     valid_race_date = False
-                    email = email + "We were unable to register you because you have provided an invalid date. Please enter a valid date."
+                    email = email + "We were unable to register you because you have provided an invalid date. Please enter a valid date.\n"
                 else:
                     races_on_date = []
                     for race_type, subraces in races.items():
@@ -134,7 +139,7 @@ for registration in registration_requests:
                     races[distance][name_of_race]["registrant_names"].append(registration.get("full_name"))
                     email = email + "You have successfully registered for the " + name_of_race + " on " + date + ". We look forward to seeing you there!\n"
             elif(len(races_on_date) >= 1 and not match):
-                                email = email + "Sorry, there are no " + distance + " races on " + date + " Here are specific race(s) taking place on the date you entered: \n"
+                                email = email + "Sorry, there are no " + distance + " races on " + date + ". Here are specific race(s) taking place on the date you entered: \n"
                                 for choice in races_on_date:
                                     email = email + ("- " + choice + "\n")
                                 email = email + "Let us know if you would be interested in registering for any of these races!\n"
