@@ -67,7 +67,9 @@ Thank You,
 Race Registration
 ---------------------------------------------------
 Dear Robert Kim,
-We were unable to register you because there are no races on the date you have entered, please try a different date.
+Sorry, there are no 10K races on 05/13/2026. Here are specific race(s) taking place on the date you entered: 
+- Spring 5K
+Let us know if you would be interested in registering for any of these races!
 Thank You,
 Race Registration
 ---------------------------------------------------
@@ -99,7 +101,9 @@ Race Registration
 ---------------------------------------------------
 Dear Registrant,
 We were unable to register you because you have not provided your first and last name. Please provide a valid first and last name.
-We were unable to register you because you have not provided a date. Please enter a valid date.
+Sorry, there are no 5K races on 11/26/2026. Here are specific race(s) taking place on the date you entered: 
+- Thanksgiving 10K
+Let us know if you would be interested in registering for any of these races!
 Thank You,
 Race Registration
 ---------------------------------------------------
